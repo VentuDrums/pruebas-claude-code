@@ -12,6 +12,11 @@ Proyecto de pruebas con skills para Claude Code. Las skills viven en `.claude/sk
 
 Los checklists compartidos que enlazan (seguridad, rendimiento, accesibilidad, etc.) están en `.claude/references/`.
 
+También incluye:
+
+- **Comandos** (`.claude/commands/`): `/spec`, `/plan`, `/build` (o `/build auto`), `/test`, `/constraints`, `/review`, `/webperf`, `/code-simplify`, `/ship`.
+- **Agentes** (`.claude/agents/`): `code-reviewer`, `security-auditor`, `test-engineer`, `web-performance-auditor`.
+
 ### De [Panniantong/Agent-Reach](https://github.com/Panniantong/agent-reach) (licencia MIT)
 
 `agent-reach`: investigación y lectura en Internet (web, búsqueda, YouTube, GitHub, Reddit, Twitter/X, Bilibili, RSS…). `SKILL.md` es la versión en inglés; `SKILL_zh.md` es la original en chino.
