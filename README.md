@@ -27,6 +27,19 @@ Requiere tener instalada la CLI de Agent Reach. Para instalarla, pídele a Claud
 Install Agent Reach: https://raw.githubusercontent.com/Panniantong/agent-reach/main/docs/install.md
 ```
 
+### De [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail) (v5.2.0, licencia MIT)
+
+Modo "senior perezoso": el cambio más pequeño que resuelve la tarea por completo, sin recortar validación, seguridad ni accesibilidad. Cada skill se invoca también como comando:
+
+- `/ponytail [lite|full|ultra]`: activa el modo o cambia su intensidad.
+- `/ponytail-review`: revisa el diff (fallos, seguridad, carga, tests que faltan, qué sobra).
+- `/ponytail-audit`: la misma revisión para todo el repo, ordenada por prioridad.
+- `/ponytail-debt`: recopila los comentarios `shortcut:` en una lista de deuda técnica.
+- `/ponytail-gain`: muestra los resultados medidos del benchmark.
+- `/ponytail-help`: chuleta de comandos.
+
+No se incluyen los hooks del plugin, así que no se activa solo al empezar cada sesión: se activa con `/ponytail` o cuando la tarea encaja con la descripción de la skill.
+
 ## Licencias
 
 Las licencias originales están en `.claude/licenses/`.
