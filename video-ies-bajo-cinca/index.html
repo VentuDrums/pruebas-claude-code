@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>IES Bajo Cinca — Vídeo promocional</title>
+    <script src="assets/gsap.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=block"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --navy: #0b2545;
+        --deep: #071a33;
+        --river: #1fa7a0;
+        --river-light: #7fe0d6;
+        --sun: #f6b93b;
+        --paper: #f7f4ec;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--deep);
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        font-family: "Outfit", ui-sans-serif, system-ui, sans-serif;
+        color: var(--paper);
+        background: radial-gradient(circle at 30% 20%, #133a66 0%, var(--deep) 70%);
+      }
+      .clip {
+        position: absolute;
+        inset: 0;
+      }
+      .scene {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+
+      /* Río: líneas onduladas de fondo */
+      #river {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 1920px;
+        height: 420px;
+      }
+      #river path {
+        fill: none;
+        stroke-linecap: round;
+      }
+
+      .eyebrow {
+        font-size: 34px;
+        font-weight: 600;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: var(--river-light);
+      }
+      .mega {
+        font-size: 190px;
+        font-weight: 800;
+        line-height: 0.95;
+        letter-spacing: -0.03em;
+      }
+      .mega .accent {
+        color: var(--sun);
+      }
+      .sub {
+        margin-top: 36px;
+        font-size: 44px;
+        font-weight: 400;
+        color: #d4dcea;
+      }
+      .rule {
+        width: 220px;
+        height: 8px;
+        border-radius: 4px;
+        background: var(--sun);
+        margin: 40px auto 0;
+        transform-origin: left center;
+      }
+
+      /* Escena 2: kinetic type */
+      .kin {
+        font-size: 150px;
+        font-weight: 800;
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+      }
+      .kin span {
+        display: inline-block;
+      }
+      .kin .hl {
+        color: var(--sun);
+      }
+
+      /* Escena 3: oferta */
+      .heading {
+        font-size: 96px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        margin-bottom: 70px;
+      }
+      .cards {
+        display: flex;
+        gap: 48px;
+      }
+      .card {
+        width: 520px;
+        height: 460px;
+        border-radius: 36px;
+        background: var(--paper);
+        color: var(--navy);
+        padding: 56px 48px;
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+      }
+      .card .tag {
+        width: 84px;
+        height: 84px;
+        border-radius: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 40px;
+        font-weight: 800;
+        color: var(--paper);
+        margin-bottom: 36px;
+        flex: none;
+      }
+      .card h3 {
+        font-size: 64px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        line-height: 1;
+        margin-bottom: 24px;
+      }
+      .card p {
+        font-size: 32px;
+        line-height: 1.35;
+        color: #24364e;
+      }
+      .card p strong {
+        color: var(--navy);
+        font-weight: 600;
+      }
+
+      /* Escena 4: Erasmus+ */
+      .eu-star-ring {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 0;
+        height: 0;
+      }
+      .eu-star {
+        position: absolute;
+        width: 34px;
+        height: 34px;
+        margin: -17px 0 0 -17px;
+        color: var(--sun);
+        opacity: 0.55;
+        font-size: 34px;
+        line-height: 34px;
+        text-align: center;
+      }
+      .erasmus-title {
+        font-size: 150px;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        line-height: 1;
+      }
+      .erasmus-title .plus {
+        color: var(--sun);
+      }
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 22px;
+        max-width: 1500px;
+        margin-top: 60px;
+      }
+      .chip {
+        padding: 18px 36px;
+        border-radius: 999px;
+        font-size: 36px;
+        font-weight: 600;
+        background: rgba(127, 224, 214, 0.14);
+        border: 2px solid var(--river-light);
+        color: var(--paper);
+      }
+
+      /* Escena 5: proyectos */
+      .rows {
+        display: flex;
+        flex-direction: column;
+        gap: 34px;
+        text-align: left;
+      }
+      .row {
+        display: flex;
+        align-items: center;
+        gap: 40px;
+        font-size: 64px;
+        font-weight: 600;
+      }
+      .row .dot {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: var(--sun);
+        flex: none;
+      }
+
+      /* Escena 6: cierre */
+      .outro-name {
+        font-size: 170px;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        line-height: 1;
+      }
+      .url {
+        margin-top: 50px;
+        display: inline-block;
+        padding: 22px 48px;
+        border-radius: 999px;
+        background: var(--sun);
+        color: var(--navy);
+        font-size: 48px;
+        font-weight: 800;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="31"
+      data-width="1920"
+      data-height="1080"
+    >
+      <!-- Fondo: el río Cinca, presente todo el vídeo -->
+      <svg
+        id="river"
+        class="clip"
+        data-start="0"
+        data-duration="31"
+        data-track-index="0"
+        viewBox="0 0 1920 420"
+        style="inset: auto 0 0 0"
+        data-layout-allow-overflow
+      >
+        <path
+          id="w1"
+          d="M-200 260 C 200 180, 500 340, 900 260 S 1600 180, 2120 260"
+          stroke="#1fa7a0"
+          stroke-width="10"
+          opacity="0.55"
+        />
+        <path
+          id="w2"
+          d="M-200 310 C 200 230, 500 390, 900 310 S 1600 230, 2120 310"
+          stroke="#7fe0d6"
+          stroke-width="6"
+          opacity="0.35"
+        />
+        <path
+          id="w3"
+          d="M-200 360 C 200 280, 500 440, 900 360 S 1600 280, 2120 360"
+          stroke="#1fa7a0"
+          stroke-width="4"
+          opacity="0.25"
+        />
+      </svg>
+
+      <!-- 1 · Presentación -->
+      <section id="s1" class="clip scene" data-start="0" data-duration="4.6" data-track-index="1">
+        <div class="eyebrow" id="s1-eyebrow">Instituto de Educación Secundaria</div>
+        <div class="mega" id="s1-title" style="margin-top: 30px">
+          IES <span class="accent">Bajo Cinca</span>
+        </div>
+        <div class="rule" id="s1-rule"></div>
+        <div class="sub" id="s1-sub">Fraga · Huesca</div>
+      </section>
+
+      <!-- 2 · Mensaje -->
+      <section id="s2" class="clip scene" data-start="4.6" data-duration="4.4" data-track-index="1">
+        <div class="kin">
+          <span class="k">Aquí</span> <span class="k">empieza</span><br />
+          <span class="k hl">tu futuro.</span>
+        </div>
+      </section>
+
+      <!-- 3 · Oferta educativa -->
+      <section id="s3" class="clip scene" data-start="9" data-duration="6.6" data-track-index="1">
+        <div class="heading" id="s3-heading">¿Qué puedes estudiar?</div>
+        <div class="cards">
+          <div class="card">
+            <div class="tag" style="background: #0f6f6a">1</div>
+            <h3>ESO</h3>
+            <p>Cuatro cursos para crecer, aprender y descubrir lo que te apasiona.</p>
+          </div>
+          <div class="card">
+            <div class="tag" style="background: #0b2545">2</div>
+            <h3>Bachillerato</h3>
+            <p>La preparación para dar el salto a la universidad.</p>
+          </div>
+          <div class="card">
+            <div class="tag" style="background: #f6b93b; color: #0b2545">3</div>
+            <h3>FP</h3>
+            <p>
+              <strong>Grado Medio</strong> en Gestión Administrativa<br />
+              <strong>Grado Superior</strong> en Administración y Finanzas
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4 · Erasmus+ -->
+      <section id="s4" class="clip scene" data-start="15.6" data-duration="5.8" data-track-index="1">
+        <div class="eu-star-ring" id="stars" data-layout-allow-overlap></div>
+        <div class="eyebrow" id="s4-eyebrow">Centro acreditado</div>
+        <div class="erasmus-title" id="s4-title" style="margin-top: 20px">
+          Erasmus<span class="plus">+</span>
+        </div>
+        <div class="chips">
+          <div class="chip">Italia</div>
+          <div class="chip">Irlanda</div>
+          <div class="chip">Finlandia</div>
+          <div class="chip">Polonia</div>
+          <div class="chip">Suecia</div>
+          <div class="chip">Alemania</div>
+          <div class="chip">Dinamarca</div>
+          <div class="chip">Grecia</div>
+        </div>
+      </section>
+
+      <!-- 5 · Proyectos -->
+      <section id="s5" class="clip scene" data-start="21.4" data-duration="5" data-track-index="1">
+        <div class="heading" id="s5-heading">Aprender haciendo</div>
+        <div class="rows">
+          <div class="row"><span class="dot"></span>Intercambios internacionales</div>
+          <div class="row"><span class="dot"></span>Ferias científicas</div>
+          <div class="row"><span class="dot"></span>Proyectos europeos y eTwinning</div>
+        </div>
+      </section>
+
+      <!-- 6 · Cierre -->
+      <section id="s6" class="clip scene" data-start="26.4" data-duration="4.6" data-track-index="1">
+        <div class="eyebrow" id="s6-eyebrow">Te esperamos</div>
+        <div class="outro-name" id="s6-name" style="margin-top: 30px">IES Bajo Cinca</div>
+        <div class="url" id="s6-url">iesbajocinca.catedu.es</div>
+      </section>
+    </div>
+
+    <script>
+      // Estrellas de la bandera europea (posiciones fijas, sin aleatoriedad)
+      const ring = document.getElementById("stars");
+      for (let i = 0; i < 12; i++) {
+        const a = (i / 12) * Math.PI * 2;
+        const s = document.createElement("div");
+        s.className = "eu-star";
+        s.textContent = "★";
+        s.style.left = Math.cos(a) * 470 + "px";
+        s.style.top = Math.sin(a) * 470 + "px";
+        ring.appendChild(s);
+      }
+
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      const ease = "power3.out";
+
+      // Río: ondas desplazándose suavemente durante todo el vídeo
+      tl.fromTo("#w1", { x: 0 }, { x: -260, duration: 31, ease: "none" }, 0);
+      tl.fromTo("#w2", { x: -120 }, { x: 140, duration: 31, ease: "none" }, 0);
+      tl.fromTo("#w3", { x: 60 }, { x: -200, duration: 31, ease: "none" }, 0);
+      tl.from("#river", { opacity: 0, y: 80, duration: 1.4, ease }, 0);
+
+      // 1 · Presentación
+      tl.from("#s1-eyebrow", { opacity: 0, y: 30, duration: 0.7, ease }, 0.3);
+      tl.from("#s1-title", { opacity: 0, y: 80, scale: 0.96, duration: 1, ease }, 0.5);
+      tl.from("#s1-rule", { scaleX: 0, duration: 0.8, ease }, 1.2);
+      tl.from("#s1-sub", { opacity: 0, y: 30, duration: 0.7, ease }, 1.5);
+      tl.to("#s1", { opacity: 0, y: -40, duration: 0.5, ease: "power2.in" }, 4.1);
+
+      // 2 · Mensaje palabra a palabra
+      tl.from("#s2 .k", { opacity: 0, y: 90, rotation: 4, duration: 0.7, stagger: 0.35, ease }, 4.8);
+      tl.to("#s2 .hl", { scale: 1.06, duration: 0.6, ease: "power2.inOut", yoyo: true, repeat: 1 }, 6.6);
+      tl.to("#s2", { opacity: 0, scale: 1.08, duration: 0.5, ease: "power2.in" }, 8.5);
+
+      // 3 · Oferta
+      tl.from("#s3-heading", { opacity: 0, y: 40, duration: 0.7, ease }, 9.2);
+      tl.from("#s3 .card", { opacity: 0, y: 140, duration: 0.9, stagger: 0.3, ease: "back.out(1.4)" }, 9.7);
+      tl.to("#s3", { opacity: 0, y: -40, duration: 0.5, ease: "power2.in" }, 15.1);
+
+      // 4 · Erasmus+
+      tl.from("#stars .eu-star", { opacity: 0, scale: 0, duration: 0.5, stagger: 0.06, ease: "back.out(2)" }, 15.7);
+      tl.fromTo("#stars", { rotation: 0 }, { rotation: 30, duration: 5.8, ease: "none" }, 15.6);
+      tl.from("#s4-eyebrow", { opacity: 0, y: 30, duration: 0.6, ease }, 15.9);
+      tl.from("#s4-title", { opacity: 0, scale: 0.85, duration: 0.8, ease }, 16.1);
+      tl.from("#s4 .chip", { opacity: 0, y: 40, duration: 0.5, stagger: 0.12, ease }, 17);
+      tl.to("#s4", { opacity: 0, duration: 0.5, ease: "power2.in" }, 20.9);
+
+      // 5 · Proyectos
+      tl.from("#s5-heading", { opacity: 0, y: 40, duration: 0.7, ease }, 21.6);
+      tl.from("#s5 .row", { opacity: 0, x: -120, duration: 0.7, stagger: 0.4, ease }, 22.1);
+      tl.from("#s5 .dot", { scale: 0, duration: 0.5, stagger: 0.4, ease: "back.out(3)" }, 22.3);
+      tl.to("#s5", { opacity: 0, y: -40, duration: 0.5, ease: "power2.in" }, 25.9);
+
+      // 6 · Cierre
+      tl.from("#s6-eyebrow", { opacity: 0, y: 30, duration: 0.6, ease }, 26.6);
+      tl.from("#s6-name", { opacity: 0, y: 70, duration: 0.9, ease }, 26.8);
+      tl.from("#s6-url", { opacity: 0, scale: 0.8, duration: 0.7, ease: "back.out(2)" }, 27.6);
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
