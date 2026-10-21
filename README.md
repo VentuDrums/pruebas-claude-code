@@ -4,15 +4,13 @@ Proyecto de pruebas con skills para Claude Code. Las skills viven en `.claude/sk
 
 ## App: Acordes con las manos (`docs/`)
 
-Sinte de acompañamiento que se toca con gestos delante de la webcam (MediaPipe Hands + Tone.js).
+Sinte de acompañamiento que se toca con gestos de las manos delante de la cámara (MediaPipe + Tone.js). El plan completo está en [`PLAN.md`](PLAN.md).
 
-- **Mano izquierda (acordes)**: modo *Por escala* (eliges tónica y escala; cada gesto es un grado, del I al VII) o modo *Acordes a mi gusto* (eliges qué acorde toca cada gesto). Puño = silencio.
-- **Mano derecha (acompañamiento)**: modo *Inversión* (cada gesto elige una inversión) o modo *Ritmo* (cada gesto elige un patrón: bloque, negras, pop, arpegios, Alberti, vals, ska, bossa). Puño = no cambia nada.
-- Los ajustes se guardan en el navegador.
-
-Para probarla en local: `cd docs && python3 -m http.server 8000` y abre `http://localhost:8000`. Para publicarla: en GitHub, *Settings → Pages → Deploy from a branch*, carpeta `/docs`.
-
-Tests: `node --test tests/*.test.mjs`.
+- **Probar en local:** `npm run serve` y abre `http://localhost:8000`.
+- **Publicar:** GitHub Pages, carpeta `/docs`.
+- **Tests de la lógica:** `npm test`.
+- **Tests en navegador** (Chromium, cámara simulada con fotos de manos reales): `npm install` y `npm run test:e2e`.
+- Si la GPU del dispositivo da problemas, añade `?delegate=CPU` a la dirección.
 
 ## Skills incluidas
 

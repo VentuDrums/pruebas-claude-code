@@ -2,7 +2,7 @@
 
 Sinte de acompañamiento que se toca con gestos delante de la webcam. Proyecto para el máster de IA aplicada a la educación, abierto a cualquiera que quiera usarlo.
 
-Estado: **plan completo, pendiente de aprobación**. No se programa nada hasta que se apruebe.
+Estado: **plan aprobado. Fase 1 terminada**, pendiente de que la pruebe el usuario.
 
 ## 1. Objetivo y público
 
@@ -158,7 +158,14 @@ Cada fase termina con algo que se puede probar y enseñar.
 6. **Sonidos:** piano, pad y pluck.
 7. **MIDI:** salida a FL Studio a través de loopMIDI.
 8. **Idiomas y pantalla de inicio:** español e inglés, y elección de notación.
-9. **Publicación:** GitHub Pages, prueba con usuarios reales y material para el máster.
+9. **Publicación final:** prueba con usuarios reales y material para el máster.
+
+La app se publica en GitHub Pages desde la fase 1, para poder probar cada fase desde la tablet (Xiaomi Pad 8 Pro, Android).
+
+**Notas de la fase 1**
+- Los umbrales del reconocimiento de dedos se ajustaron con unas 120 fotos de manos reales: acierta el 92 %. Las que fallan están de canto o del dorso; tocando con la palma de frente funciona mucho mejor.
+- Los gestos 3 dedos, 4 dedos, 🤙 y 🤘 no tienen fotos reales de prueba: solo están comprobados con manos simuladas. Hay que verificarlos con manos de verdad.
+- Si la GPU del dispositivo da problemas, `?delegate=CPU` al final de la dirección fuerza el procesador.
 
 ## 13. Cómo se comprueba
 
