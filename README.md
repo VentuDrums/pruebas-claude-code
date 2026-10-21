@@ -2,6 +2,18 @@
 
 Proyecto de pruebas con skills para Claude Code. Las skills viven en `.claude/skills/` y Claude las carga automáticamente al trabajar en este repo.
 
+## App: Acordes con las manos (`docs/`)
+
+Sinte de acompañamiento que se toca con gestos delante de la webcam (MediaPipe Hands + Tone.js).
+
+- **Mano izquierda (acordes)**: modo *Por escala* (eliges tónica y escala; cada gesto es un grado, del I al VII) o modo *Acordes a mi gusto* (eliges qué acorde toca cada gesto). Puño = silencio.
+- **Mano derecha (acompañamiento)**: modo *Inversión* (cada gesto elige una inversión) o modo *Ritmo* (cada gesto elige un patrón: bloque, negras, pop, arpegios, Alberti, vals, ska, bossa). Puño = no cambia nada.
+- Los ajustes se guardan en el navegador.
+
+Para probarla en local: `cd docs && python3 -m http.server 8000` y abre `http://localhost:8000`. Para publicarla: en GitHub, *Settings → Pages → Deploy from a branch*, carpeta `/docs`.
+
+Tests: `node --test tests/*.test.mjs`.
+
 ## Skills incluidas
 
 ### De [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) (v0.6.13, licencia MIT)

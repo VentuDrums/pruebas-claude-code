@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Acordes con las manos</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+  <script type="module" src="js/app.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Acordes con las manos</h1>
+    <div class="controls">
+      <button id="soundBtn" class="primary" aria-pressed="false">▶ Tocar</button>
+      <button id="camBtn">📷 Activar cámara</button>
+      <label>Tempo <input id="bpm" type="range" min="50" max="180" step="1"> <output id="bpmValue"></output> ppm</label>
+      <label>Instrumento <select id="instrument"></select></label>
+      <label>Volumen <input id="volume" type="range" min="-30" max="0" step="1"></label>
+    </div>
+  </header>
+
+  <main>
+    <section class="stage">
+      <div class="hand-box left">
+        <h2>Mano izquierda</h2>
+        <p id="hudLeftMode"></p>
+        <p class="seen" id="leftSeen">No la veo</p>
+        <p class="fingers" id="leftFingers" title="Dedos detectados: pulgar, índice, corazón, anular, meñique"></p>
+      </div>
+
+      <div class="video-wrap">
+        <canvas id="view" width="1280" height="720" aria-label="Imagen de la cámara con las manos detectadas"></canvas>
+        <p id="camMsg">Pulsa «Activar cámara» para tocar con las manos, o usa los botones ▶ de las tablas.</p>
+        <div class="chord-hud">
+          <div id="chordName">—</div>
+          <div id="chordDegree"></div>
+          <div id="chordNotes"></div>
+          <div id="beat" aria-hidden="true"></div>
+        </div>
+      </div>
+      <video id="cam" playsinline muted hidden></video>
+
+      <div class="hand-box right">
+        <h2>Mano derecha</h2>
+        <p id="hudRightMode"></p>
+        <p class="seen" id="rightSeen">No la veo</p>
+        <p class="fingers" id="rightFingers" title="Dedos detectados: pulgar, índice, corazón, anular, meñique"></p>
+        <p><span class="tag">Inversión</span> <span id="hudInversion"></span></p>
+        <p><span class="tag">Ritmo</span> <span id="hudPattern"></span></p>
+      </div>
+    </section>
+
+    <section class="panels">
+      <div class="panel left">
+        <h2>Mano izquierda · elige el acorde</h2>
+        <div class="tabs" role="group" aria-label="Modo de la mano izquierda">
+          <button id="leftModeScale">Por escala</button>
+          <button id="leftModeCustom">Acordes a mi gusto</button>
+        </div>
+        <div id="scaleOpts" class="opts">
+          <label>Tónica <select id="tonic"></select></label>
+          <label>Escala <select id="scale"></select></label>
+          <label class="check"><input id="sevenths" type="checkbox"> Con séptima (cuatriadas)</label>
+        </div>
+        <div id="customOpts" class="opts" hidden>
+          <p>Elige qué acorde toca cada gesto.</p>
+          <button id="copyFromScale" class="small">Rellenar con los acordes de la escala</button>
+        </div>
+        <table>
+          <thead id="leftHead"></thead>
+          <tbody id="leftTable"></tbody>
+        </table>
+      </div>
+
+      <div class="panel right">
+        <h2>Mano derecha · cómo suena</h2>
+        <div class="tabs" role="group" aria-label="Modo de la mano derecha">
+          <button id="rightModeInv">Inversión</button>
+          <button id="rightModePat">Ritmo / acompañamiento</button>
+        </div>
+        <div class="opts">
+          <label>Inversión actual <select id="inversion"></select></label>
+          <label>Acompañamiento actual <select id="pattern"></select></label>
+          <label class="check"><input id="bassFollows" type="checkbox"> El bajo sigue la inversión</label>
+        </div>
+        <p id="rightHint" class="hint"></p>
+        <table>
+          <thead id="rightHead"></thead>
+          <tbody id="rightTable"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel settings">
+      <h2>Ajustes</h2>
+      <div class="opts">
+        <label>Nombres de las notas
+          <select id="notation">
+            <option value="latin">Do, Re, Mi…</option>
+            <option value="english">C, D, E…</option>
+          </select>
+        </label>
+        <label>Cómo distinguir las manos
+          <select id="handAssign">
+            <option value="screen">Por posición (izquierda de la pantalla = mano izquierda)</option>
+            <option value="model">Por el modelo de MediaPipe</option>
+            <option value="modelSwapped">Por el modelo, invertido</option>
+          </select>
+        </label>
+      </div>
+      <p class="hint">Consejos: deja la mano quieta un instante para que cambie el acorde. Los puntos ●○ muestran qué dedos ve
+        la cámara (pulgar, índice, corazón, anular, meñique). Si un gesto falla, mira cuál de ellos no detecta bien. Con buena
+        luz y la palma de frente funciona mucho mejor.</p>
+    </section>
+  </main>
+</body>
+</html>
