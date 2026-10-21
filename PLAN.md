@@ -21,7 +21,7 @@ Estado: **en planificación**. No se programa nada nuevo hasta cerrar este docum
      - Modo escala: nombre y grado (por ejemplo, «Rem · ii»).
      - Modo personalizado: solo el nombre.
    - Botón para abrir la configuración.
-3. **Panel de configuración (desplegable)**: todos los ajustes de los apartados 4 a 8.
+3. **Panel de configuración (desplegable)**: todos los ajustes de los apartados 4 a 10, incluido el editor de patrones.
 
 ## 3. Gestos
 
@@ -29,7 +29,7 @@ Se reconocen con reglas sobre los puntos de la mano (qué dedos están estirados
 
 | Gesto | Mano izquierda, modo escala | Mano derecha |
 |---|---|---|
-| ✊ Puño | Silencio | Nada (pendiente de decidir) |
+| ✊ Puño | Silencio | Fader de volumen (ver apartado 5) |
 | ☝️ 1 dedo | I | Configurable |
 | ✌️ 2 dedos | II | Configurable |
 | 3 dedos (índice, corazón, anular) | III | Configurable |
@@ -41,7 +41,7 @@ Se reconocen con reglas sobre los puntos de la mano (qué dedos están estirados
 
 - **Estabilidad:** un gesto solo cuenta cuando se mantiene unos instantes, para evitar parpadeos.
 - **Mano izquierda fuera de cámara:** cuenta como puño (deja de sonar), con un margen de unos 0,3 s para que no corte si MediaPipe pierde la mano un momento.
-- **Mano derecha fuera de cámara:** no cambia nada.
+- **Mano derecha fuera de cámara:** no cambia nada. Si estaba moviendo el fader, el volumen se queda donde estaba.
 - **Mano izquierda y derecha:** se distinguen por su posición en la imagen. Habrá un ajuste por si salen al revés.
 
 ## 4. Mano izquierda: elige el acorde
@@ -62,11 +62,16 @@ El modo se elige en la configuración. En cada modo, el valor que no controla la
 - **Modo inversión:** cada gesto elige estado fundamental, 1ª, 2ª o 3ª inversión, posición abierta u octava grave o aguda. Ajuste extra: el bajo sigue la inversión, sí o no.
 - **Modo ritmo/acompañamiento:** cada gesto elige un patrón, por ejemplo bloque sostenido, negras, rasgueo pop, arpegios, bajo Alberti, vals, contratiempo o bossa.
 - La tabla gesto → inversión o gesto → patrón se puede editar.
+- **Fader de volumen (puño derecho, en los dos modos)**
+  - Cierras el puño derecho y subes o bajas la mano para cambiar el volumen. Al abrir la mano, el volumen se queda fijo.
+  - El movimiento es relativo: el volumen cambia según cuánto mueves la mano desde donde cerraste el puño, así no da saltos.
+  - En pantalla se ve una barra de volumen mientras el fader está agarrado.
+  - Por MIDI se envía como mensaje de control (CC7 o CC11, a elegir).
 
 ## 6. Tiempo y cambio de acorde
 
 - **Tempo:** se ajusta a mano en la app.
-- **Compás:** se elige en un selector. Propuesta: 2/4, 3/4, 4/4 y 6/8.
+- **Compás:** se elige en un selector: 2/4, 3/4, 4/4, 3/8, 6/8, 9/8 y 12/8.
 - **Momento del cambio de acorde:** al instante, en el siguiente pulso o en el siguiente compás.
 - **Al cambiar de acorde dentro de un patrón:** se elige entre seguir a tempo con el acorde nuevo o reiniciar el patrón.
 - **Metrónomo:**
@@ -74,13 +79,37 @@ El modo se elige en la configuración. En cada modo, el valor que no controla la
   - Acento en la primera parte del compás.
   - Cuenta previa opcional.
 
-## 7. Sonido
+## 7. Patrones de acompañamiento
+
+Cada compás tiene sus propios patrones, y la tabla de la mano derecha solo muestra los que encajan con el compás elegido. Los patrones se definen por posiciones («bajo», «quinta», «acorde», «nota 1 del arpegio»…), no por notas fijas, así que funcionan con cualquier acorde e inversión.
+
+Ejemplo con Do: bajo = Do2, quinta = Sol2, Ac = acorde Do3-Mi3-Sol3, arpegio = Do3 Mi3 Sol3 Do4 Mi4.
+
+**Patrones de fábrica**
+
+| Compás | Patrones |
+|---|---|
+| 2/4 | Bloque sostenido, negras, marcha/polka, habanera/tango, arpegio en semicorcheas |
+| 3/4 | Bloque sostenido, negras, vals, arpegio en corcheas, bajo Alberti |
+| 4/4 | Bloque sostenido, negras, balada, rasgueo pop, arpegio ascendente, arpegio que sube y baja, bajo Alberti, contratiempo (ska/reggae), rock en corcheas, charlestón, bossa nova (simplificada) |
+| 3/8 | Bloque sostenido, vals rápido, arpegio |
+| 6/8 | Bloque sostenido, pulsos, bajo-acorde-acorde, barcarola, balada arpegiada, arpegio ascendente |
+| 9/8 | Bloque sostenido, pulsos, bajo-acorde-acorde, arpegio |
+| 12/8 | Bloque sostenido, pulsos, balada años 50 (tresillos), balada arpegiada, shuffle/boogie |
+
+El detalle de las notas de cada patrón está en el anexo A.
+
+**Editor de patrones**
+
+Los patrones se pueden modificar y se pueden crear patrones nuevos. El diseño del editor está pendiente (ver decisiones abiertas).
+
+## 8. Sonido
 
 - **Instrumentos iniciales:** piano, pad y pluck.
 - El código se organiza para añadir instrumentos nuevos fácilmente.
 - Volumen general.
 
-## 8. Salida MIDI (para FL Studio en Windows)
+## 9. Salida MIDI (para FL Studio en Windows)
 
 - Envía exactamente lo que sonaría en la app (acorde y bajo) para que lo toque un instrumento del DAW.
 - Al activar el MIDI se puede silenciar el sonido de la app.
@@ -92,20 +121,20 @@ El modo se elige en la configuración. En cada modo, el valor que no controla la
   - En Windows hay que instalar **loopMIDI** (gratis) y crear un puerto.
   - En FL Studio, en Options → MIDI settings, hay que activar ese puerto como entrada.
 
-## 9. Idioma y notación
+## 10. Idioma y notación
 
 - La interfaz va en español e inglés. El idioma se elige en la pantalla de inicio y se puede cambiar desde la configuración.
 - Nombres de las notas: Do-Re-Mi o C-D-E, a elegir.
 - Los ajustes se guardan en el navegador.
 
-## 10. Decisiones abiertas
+## 11. Decisiones abiertas
 
-- [ ] **Puño de la mano derecha:** de momento no hace nada.
-- [ ] **Patrones y compás:** cada patrón está pensado para un compás. Propuesta: cada patrón se define para los compases en los que tiene sentido, y la tabla solo muestra los patrones compatibles con el compás elegido.
-- [ ] **Lista definitiva de patrones** para cada compás.
-- [ ] **Código ya escrito en la rama:** reutilizar partes (teoría musical, detección de dedos) o empezar de cero.
+- [x] **Puño de la mano derecha:** fader de volumen.
+- [x] **Patrones y compás:** cada compás tiene sus patrones (apartado 7).
+- [x] **Código ya escrito en la rama:** se empieza de cero. El código actual se borra al arrancar la fase 1.
+- [ ] **Editor de patrones:** cómo se edita (rejilla, intensidad, duración), si se pueden compartir patrones…
 
-## 11. Fases de desarrollo
+## 12. Fases de desarrollo
 
 Cada fase termina con algo que se puede probar y enseñar.
 
@@ -114,15 +143,73 @@ Cada fase termina con algo que se puede probar y enseñar.
    - La mano izquierda toca los grados de Do mayor con un pad.
    - Cambio de acorde al instante.
 2. **Mano izquierda completa:** modo escala con todos sus ajustes, modo personalizado y panel de configuración.
-3. **Mano derecha:** modos inversión y ritmo, con la tabla editable.
-4. **Tiempo:** compases, cuantización, metrónomo y cuenta previa.
-5. **Sonidos:** piano, pad y pluck.
-6. **MIDI:** salida a FL Studio a través de loopMIDI.
-7. **Idiomas y pantalla de inicio:** español e inglés, y elección de notación.
-8. **Publicación:** GitHub Pages, prueba con usuarios reales y material para el máster.
+3. **Mano derecha:** modos inversión y ritmo, con la tabla editable, y fader de volumen.
+4. **Tiempo:** compases, patrones de fábrica, cuantización, metrónomo y cuenta previa.
+5. **Editor de patrones.**
+6. **Sonidos:** piano, pad y pluck.
+7. **MIDI:** salida a FL Studio a través de loopMIDI.
+8. **Idiomas y pantalla de inicio:** español e inglés, y elección de notación.
+9. **Publicación:** GitHub Pages, prueba con usuarios reales y material para el máster.
 
-## 12. Cómo se comprueba
+## 13. Cómo se comprueba
 
 - **Tests automáticos** de la parte musical (acordes, escalas, inversiones, patrones) y de la clasificación de gestos.
 - **Prueba con manos reales en cada fase:** la app muestra qué dedos detecta para poder ajustar el reconocimiento.
 - **Prueba del MIDI** en FL Studio con loopMIDI.
+
+## Anexo A. Notas de los patrones (ejemplo con Do)
+
+Leyenda: los números son las partes del compás e «y» es la corchea a contratiempo. En 3/8, 6/8, 9/8 y 12/8 se cuenta por corcheas. «Ac» es el acorde completo.
+
+**2/4**
+- Bloque sostenido: `1: Do2 + Ac (todo el compás)`
+- Negras: `1: Do2+Ac | 2: Ac`
+- Marcha / polka: `1: Do2 | y: Ac | 2: Sol2 | y: Ac`
+- Habanera / tango: `1: Do2 (corchea con puntillo) | última semicorchea: Sol2 | 2: Ac | y: Ac`
+- Arpegio en semicorcheas: `Do3 Mi3 Sol3 Do4 | Do3 Mi3 Sol3 Do4` (con Do2 en el 1)
+
+**3/4**
+- Bloque sostenido: `1: Do2 + Ac (todo el compás)`
+- Negras: `1: Do2+Ac | 2: Ac | 3: Ac`
+- Vals: `1: Do2 | 2: Ac | 3: Ac` (variante: el bajo alterna Do2 y Sol2 en cada compás)
+- Arpegio en corcheas: `Do3 Mi3 | Sol3 Do4 | Sol3 Mi3` (con Do2 en el 1)
+- Bajo Alberti: `Do3 Sol3 | Mi3 Sol3 | Do3 Sol3`
+
+**4/4**
+- Bloque sostenido: `1: Do2 + Ac (redonda)`
+- Negras: `1: Do2+Ac | 2: Ac | 3: Do2+Ac | 4: Ac`
+- Balada: acorde suave en cada corchea, `1: Do2 | 3: Sol2` en el bajo
+- Rasgueo pop (↓ ↓↑ ↑↓↑): `1: Do2+Ac | 2: Ac | 2y: Ac | 3y: Ac | 4: Ac | 4y: Ac`
+- Arpegio ascendente: `Do3 Mi3 | Sol3 Do4 | Do3 Mi3 | Sol3 Do4` (con Do2 en el 1)
+- Arpegio que sube y baja: `Do3 Mi3 | Sol3 Do4 | Mi4 Do4 | Sol3 Mi3` (con Do2 en el 1)
+- Bajo Alberti: `Do3 Sol3 | Mi3 Sol3 | Do3 Sol3 | Mi3 Sol3`
+- Contratiempo (ska / reggae): `1: Do2 | 1y: Ac | 2y: Ac | 3: Sol2 | 3y: Ac | 4y: Ac`
+- Rock en corcheas: Do2 + Do3-Sol3 (power chord) en las 8 corcheas
+- Charlestón: `1: Do2+Ac | 2y: Ac | 3: Sol2`
+- Bossa nova (simplificada en 1 compás): `1: Do2+Ac | 2y: Ac | 3: Sol2 | 4: Ac`
+
+**3/8**
+- Bloque sostenido: `1: Do2 + Ac (negra con puntillo)`
+- Vals rápido: `1: Do2 | 2: Ac | 3: Ac`
+- Arpegio: `Do3 Mi3 Sol3` (con Do2 en el 1)
+
+**6/8**
+- Bloque sostenido: `1: Do2 + Ac (todo el compás)`
+- Pulsos: `1: Do2+Ac | 4: Ac`
+- Bajo-acorde-acorde: `Do2 Ac Ac | Sol2 Ac Ac`
+- Barcarola (negra-corchea): `1: Do2+Ac (negra) | 3: Ac | 4: Sol2+Ac (negra) | 6: Ac`
+- Balada arpegiada: `Do2 Sol2 Do3 | Mi3 Do3 Sol2`
+- Arpegio ascendente: `Do3 Mi3 Sol3 | Do4 Sol3 Mi3` (con Do2 en el 1)
+
+**9/8**
+- Bloque sostenido: `1: Do2 + Ac (todo el compás)`
+- Pulsos: `1: Do2+Ac | 4: Ac | 7: Ac`
+- Bajo-acorde-acorde: `Do2 Ac Ac | Sol2 Ac Ac | Do2 Ac Ac`
+- Arpegio: `Do2 Sol2 Do3 | Mi3 Sol3 Do4 | Sol3 Mi3 Do3`
+
+**12/8**
+- Bloque sostenido: `1: Do2 + Ac (todo el compás)`
+- Pulsos: `1: Do2+Ac | 4: Ac | 7: Sol2+Ac | 10: Ac`
+- Balada años 50 (tresillos): acorde en las 12 corcheas, acentuando cada pulso, con `1: Do2 | 7: Sol2` en el bajo
+- Balada arpegiada: `Do2 Sol2 Do3 | Mi3 Do3 Sol2 | Do2 Sol2 Do3 | Mi3 Do3 Sol2`
+- Shuffle / boogie: bajo en negra-corchea `Do2·Mi2 | Sol2·La2 | Si♭2·La2 | Sol2·Mi2`, con acorde corto en los pulsos 2 y 4 (La y Si♭ son notas de paso típicas del boogie)
