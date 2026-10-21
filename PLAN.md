@@ -162,9 +162,29 @@ Cada fase termina con algo que se puede probar y enseñar.
 
 ## 13. Cómo se comprueba
 
-- **Tests automáticos** de la parte musical (acordes, escalas, inversiones, patrones) y de la clasificación de gestos.
-- **Prueba con manos reales en cada fase:** la app muestra qué dedos detecta para poder ajustar el reconocimiento.
-- **Prueba del MIDI** en FL Studio con loopMIDI.
+Regla: **ninguna fase se da por terminada sin pasar sus comprobaciones**. Lo que no se pueda comprobar automáticamente se dice claramente en el informe de la fase.
+
+**Comprobaciones automáticas en cada fase** (las hace Claude antes de subir el código):
+
+- **Tests de la lógica:** acordes, escalas, inversiones, patrones, cuantización, reconocimiento de gestos a partir de los puntos de la mano y mensajes MIDI.
+- **Tests en un navegador real (Chromium):**
+  - La página carga sin errores y se recorren las pantallas y los ajustes.
+  - Los ajustes se guardan al recargar.
+  - Pruebas con tamaño de móvil, de tablet y de ordenador.
+- **Audio:**
+  - Se comprueba que suenan las notas correctas en el momento correcto (registro de eventos).
+  - Se comprueba que el audio generado no está en silencio. No se puede escuchar, pero sí medir.
+- **Cámara:** se usa una cámara simulada. Si es posible, se usan también vídeos o fotos de manos reales como si fueran la cámara, para comprobar que MediaPipe reconoce los gestos.
+- **MIDI:** se simula un puerto MIDI para verificar las notas, los «note off» y los mensajes de volumen que se envían.
+
+**Comprobaciones que solo puede hacer el usuario** (cada fase incluye una lista corta de qué probar):
+
+- Cómo responde a sus manos reales, con su luz y su cámara.
+- Cómo suena de verdad.
+- El MIDI en FL Studio con loopMIDI (desde un ordenador con Windows).
+- Safari en iPad o iPhone: el navegador de pruebas es Chromium y no se puede probar el motor de Safari.
+
+**Informe al terminar cada fase:** qué se ha hecho, qué se ha comprobado y cómo, qué queda pendiente de probar por el usuario y si se puede probar desde la tablet.
 
 ## Anexo A. Notas de los patrones (ejemplo con Do)
 
