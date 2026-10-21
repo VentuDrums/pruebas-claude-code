@@ -2,7 +2,7 @@
 
 Sinte de acompañamiento que se toca con gestos delante de la webcam. Proyecto para el máster de IA aplicada a la educación, abierto a cualquiera que quiera usarlo.
 
-Estado: **en planificación**. No se programa nada nuevo hasta cerrar este documento.
+Estado: **plan completo, pendiente de aprobación**. No se programa nada hasta que se apruebe.
 
 ## 1. Objetivo y público
 
@@ -101,7 +101,16 @@ El detalle de las notas de cada patrón está en el anexo A.
 
 **Editor de patrones**
 
-Los patrones se pueden modificar y se pueden crear patrones nuevos. El diseño del editor está pendiente (ver decisiones abiertas).
+- **Fábrica y propios:** los patrones de fábrica no se modifican. Con «Duplicar y editar» o «Nuevo patrón» se crea un patrón propio, que aparece en la lista de su compás y se puede asignar a un gesto. Los patrones propios se guardan en el navegador.
+- **Rejilla tipo step sequencer:**
+  - Columnas: subdivisiones del compás. Semicorcheas en 2/4, 3/4 y 4/4; corcheas en 3/8, 6/8, 9/8 y 12/8.
+  - Filas del acorde: Acorde completo y Nota 1 a Nota 5 del arpegio.
+  - Filas del bajo: Fundamental, 3ª y 5ª del acorde (siguen al acorde: en Dom la 3ª es Mi♭).
+  - Filas de notas extra, contadas desde la fundamental: 2ª, 4ª, 6ª, 7ª menor y 7ª mayor (con Do: Re, Fa, La, Si♭ y Si). Cada una se puede poner en el registro grave (bajo) o en el medio (acorde).
+- **Intensidad:** cada patrón elige si usa intensidades. Sin intensidades, todas las notas suenan igual. Con intensidades, cada casilla tiene tres niveles (suave, media o fuerte) que se cambian con clics sucesivos.
+- **Duración:** un ajuste para todo el patrón, picado o ligado.
+- **Escucha:** mientras editas, el patrón suena en bucle con el acorde que elijas (por ejemplo, Do, Dom o Do7).
+- No se exportan ni se importan patrones en archivos.
 
 ## 8. Sonido
 
@@ -132,7 +141,7 @@ Los patrones se pueden modificar y se pueden crear patrones nuevos. El diseño d
 - [x] **Puño de la mano derecha:** fader de volumen.
 - [x] **Patrones y compás:** cada compás tiene sus patrones (apartado 7).
 - [x] **Código ya escrito en la rama:** se empieza de cero. El código actual se borra al arrancar la fase 1.
-- [ ] **Editor de patrones:** cómo se edita (rejilla, intensidad, duración), si se pueden compartir patrones…
+- [x] **Editor de patrones:** rejilla con filas extra, intensidad opcional y duración picado/ligado (apartado 7).
 
 ## 12. Fases de desarrollo
 
